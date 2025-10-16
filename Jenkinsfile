@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git 'https://github.com/AnonymousDev56/ci_cd_test.git'
+                git branch: 'main', url:  'https://github.com/AnonymousDev56/ci_cd_test.git'
             }
         }
 
