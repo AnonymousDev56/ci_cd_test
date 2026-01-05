@@ -16,6 +16,9 @@ jobs:
         run: |
           docker build -t ci-cd-test .
 
-      - name: Run container
+      - name: Run container and test
         run: |
-          docker run --rm ci-cd-test
+          docker run -d -p 8080:80 --name test_app ci-cd-test
+          sleep 5
+          curl -f http://localhost:8080 || exit 1
+          docker stop test_app
