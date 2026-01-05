@@ -18,8 +18,8 @@ jobs:
 
       - name: Run unit tests
         run: |
-          docker run --rm ci-cd-test pytest
-
+          docker run --rm -e PYTHONPATH=/app ci-cd-test pytest
+          
       - name: Run container and healthcheck
         run: |
           docker run -d -p 8080:80 --name test_app ci-cd-test
