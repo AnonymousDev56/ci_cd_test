@@ -1,6 +1,12 @@
 FROM python:3.10-alpine
+
 WORKDIR /app
 COPY . /app
-RUN pip install flask pytest
+
+RUN pip install --no-cache-dir flask \
+ && adduser -D appuser
+
+USER appuser
+
 EXPOSE 80
 CMD ["python", "app.py"]
