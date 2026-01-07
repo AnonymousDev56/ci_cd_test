@@ -19,7 +19,7 @@ jobs:
       - name: Run unit tests
         run: |
           docker build --target test -t ci-cd-test-test .
-          docker run --rm ci-cd-test-test
+          docker run --rm -e PYTHONPATH=/app ci-cd-test-test pytest
 
       - name: Run container and healthcheck
         run: |
