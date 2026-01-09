@@ -16,10 +16,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build test image
-        run: docker build -t ci-cd-test .
+        run: docker build --target test -t ci-cd-test:test .
 
       - name: Run unit tests
-        run: docker run --rm -e PYTHONPATH=/app ci-cd-test pytest
+        run: docker run --rm ci-cd-test:test
 
   build:
     name: Build Docker image
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Build runtime image
         run: docker build -t ci-cd-test .
 
   push:
@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build image
+      - name: Build runtime image
         run: docker build -t ci-cd-test .
 
       - name: Push latest (main only)
