@@ -2,9 +2,13 @@
 FROM python:3.10-alpine AS test
 
 WORKDIR /app
-COPY . /app
 
-RUN pip install --no-cache-dir flask pytest
+# 1. Сначала зависимости
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 2. Потом код
+COPY . .
 
 CMD ["pytest"]
 
@@ -12,10 +16,14 @@ CMD ["pytest"]
 FROM python:3.10-alpine
 
 WORKDIR /app
-COPY . /app
 
-RUN pip install --no-cache-dir flask \
+# 1. Сначала зависимости
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt \
     && adduser -D appuser
+
+# 2. Потом код
+COPY . .
 
 USER appuser
 
