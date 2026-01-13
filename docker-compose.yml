@@ -5,5 +5,7 @@ services:
     build: .
     ports:
       - "8081:80"
+    env_file:
+      - .env
     container_name: ci_cd_app
 
