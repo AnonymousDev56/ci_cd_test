@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: ci_cd_app_dev
+    ports:
+      - "8081:80"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: python app.py
